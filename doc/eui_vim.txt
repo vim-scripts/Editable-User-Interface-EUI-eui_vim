@@ -1,0 +1,511 @@
+*eui_vim.txt*  Editable User Interface (EUI) using VIM As the Editor  February 9, 2004
+
+Editable User Interface (EUI) using VIM As the Editor
+February 10, 2004
+
+
+Introduction                                 |eui_vim-introduction|
+  Graphical, Keyboard and Pseudo-keyboard User Interfaces  |eui_vim-user-interfaces|
+  Editable User Interface                    |eui_vim-editable-user-interface|
+    The Text Editor                          |eui_vim-the-text-editor|
+    The PC as a Product                      |eui_vim-the-PC-as-a-Product|
+Users' Guide                                 |eui_vim-users'-guide|
+  Preliminaries                              |eui_vim-preliminaries|
+    System Requirements                      |eui_vim-system-requirements|
+    Download                                 |eui_vim-download|
+    Installation                             |eui_vim-installation|
+  Tutorial                                   |eui_vim-tutorial|
+    :EUIProcess foo                          |eui_vim-EUIProcess-foo|
+    :EUIProcess list                         |eui_vim-EUIProcess-list|
+    :EUIProcess demo_plot                    |eui_vim-EUIProcess-demo_plot|
+    How the transfers are done               |eui_vim-how-the-transfers-are-done|
+      Format of the fifo-file                |eui_vim-format-of-the-fifo-file|
+    :EUIProcess quit                         |eui_vim-EUIProcess-quit|
+    Automatic clean-up                       |eui_vim-automatic-clean-up|
+Example Applications                         |eui_vim-example-applications|
+  VimPuppy                                   |eui_vim-VimPuppy|
+  Vimms                                      |eui_vim-Vimms|
+Author                                       |eui_vim-author|
+Claims                                       |eui_vim-claims|
+Copyright                                    |eui_vim-copyright|
+Disclaimer                                   |eui_vim-disclaimer|
+
+
+Introduction                                              *eui_vim-introduction*
+  Graphical, Keyboard and Pseudo-keyboard User Interfaces  
+                                             *eui_vim-user-interfaces* 
+                                             *eui_vim-graphical-user-interfaces*
+                                             *eui_vim-keyboard-user-interfaces*
+                                             *eui_vim-pseudo-keyboard-user-interfaces*
+
+  The two prevalent user-interfaces for applications on a (unix or windows
+  based) PC are the Keyboard User Interface (KUI) and the Graphical User
+  Interface (GUI).
+
+  The graphical user interface seeks to replace actions by widgets (such as
+  icons and items in menus) that can be pointed to and clicked at.  The
+  specificity of the actions represented by the ultimate widgets and the
+  impossibility of dynamically combining the ultimate widgets leads to the
+  proliferation of widgets in any moderately complex application's graphical
+  interface (widgets can be combined statically into a new widget, but one
+  cannot form mega-widgets as and when needed, dynamically, the way one forms
+  commands from keystrokes).  The graphical interface is very good for
+  beginning users of applications who execute a few simple actions.  However,
+  the atomicity of a widget's action (minute graphical action unrelated to the
+  application-related action of the ultimate widget) and the static nature of
+  the widgets necessitate several point-and-clicks to achieve the ultimate
+  goal;  which binds the user to the perceptual level.   
+
+  So most users, seeking to be ever more productive, eventually outgrow the
+  graphical interface of frequently used applications and switch over to the
+  keyboard interface.  This preference for the keyboard interface by the
+  experienced user is true not only of engineers but also of non-technical
+  users such as secretaries.
+
+  A keyboard interface enables the user to interact with the application using
+  commands with a precise grammar typed from a keyboard.  Such an interface is
+  not restricted to being a command line as in a console based ftp application
+  but can be a full-screen interface as in the lynx browser.  Such interfaces
+  are usually ''intelligent'' in the sense of having features such as 
+  history and auto-completion.  
+
+  What is even more significant than the fact that non-technical users too
+  shift from the graphical interface to the keyboard interface is the fact
+  that this shift happens even if the keyboard interface is a pseudo-keyboard
+  interface such as that afforded by windows' applications.  The keyboard
+  interface of windows' applications is a pseudo-keyboard interface because of
+  four interrelated reasons.  
+
+    1) most of the key-strokes are actually a reflection of the pointer
+       operating on graphical widgets (alt and arrow keys to manipulate menus,
+       shift and arrow keys to click-and-drag-select etc.)  
+
+    2) the key-strokes are organized on the basis of a rationalistic hierarchy
+       rather than on the basis of the operation involved (a spell check
+       involves keystrokes to control the Tool menu rather than keystrokes
+       directly related to the word spell; to compose a message one gets
+       involved with File|New or Message|New or File|Open rather than with the
+       subject of the message or the name of the file that would contain and
+       organize the message etc.)  
+
+    3) the script based control afforded by windows' applications involves
+       lines of code that merely reflect excruciatingly atomic graphical
+       actions.
+
+    4) absence of any meaningful support for command utilization features such
+       as patterns, pipes and filters.
+
+  This need to focus on the perceptual consequences of ones actions and on the
+  structure of one's conceptual equipment rather than on one's actual goals
+  and on the concepts themselves is destructive.  However, this mind-set
+  required for a pesudo-keyboard interface is preferable to the percept bound
+  mind-set required by a graphical interface.  
+
+  Editable User Interface                   *eui_vim-editable-user-interface*
+
+  To understand the interface appropriate for a conceptual being, we first
+  need to understand the text editor.
+
+    The Text Editor                                 *eui_vim-the-text-editor*
+
+    A papyrus -- or a text editor -- is a fundamental tool for a conceptual
+    being.  Simple editors go a little beyond supporting the entry and
+    deletion of characters next to the cursor by supporting the deletion and
+    addition of highlighted lines.  But a text editor can greatly facilitate
+    the process of capturing one's thoughts by providing support for
+    insertion, searches, repositioning text, movement, repetition,
+    auto-completion, formatting white-space and alignment etc.  Text editors
+    can have hooks to help with the transfer and receipt of messages.  And
+    when one's thoughts pertain to manipulating and controlling inanimate
+    objects, a text editor can play a more significant role by supporting the
+    processing of such thoughts.  
+
+    Although some developers of applications with the graphical interface keep
+    re-creating simple editors for each application: one for consoles, one for
+    small files, one for large files, one for messages, one for C-programmers
+    etc. with the editor being permanently attached to each application, there
+    are also those developers who recognize the abstraction of a text editor
+    and provide their text editor as an optional aspect of their application, 
+    allowing the user to use almost any other editor with their application.  
+
+    Anyway, the point to note for now is that there are sophisticated text
+    editors that can support anything that one would want to do with a text
+    editor -- and if they can't readily support something, they have hooks
+    that allow the user to enhance the editor to his own needs.  While they
+    allow customization and enhancement by users, these editors do not
+    restrict themselves to sophisticated users -- they have graphical
+    interfaces for the beginner and allow the beginner to acquire mastery over
+    the editor at a pace dictated by his own purpose.
+
+    Rather than go off-track into consideration of formatted output and of
+    Tex, Word and FrontPage, it more fundamental and relevant to user
+    interfaces to next consider what the PC is as a product.
+
+    The PC as a Product                          *eui_vim-the-PC-as-a-Product*
+
+    The PC is a tool but it is unlike common tools such as knives and cars:
+    it is a domain in which the user can integrate his other tools and build
+    other tools, the other tools being not just applications but also tools to
+    interact with devices that are local or distant to the PC.  Each PC
+    becomes as individualized as people are because it reflects the intellect
+    and motive of its user.  (This is similar to how Recreational Vehicles
+    become subject to a myriad of customizations because they reflect the
+    lives of their owners.)
+
+    The same application, such as the same email client, ends up being used
+    differently by different people.  The use of an application involves
+    creative thought -- even an application running in a mindless batch mode
+    reflects the creativity of the person who sought and set up that batch
+    process.  People can live with a few number of choices for aspects of an
+    application that are inconsequential to its functioning (such as its
+    color-scheme) but a mind cannot be told that it has to think only this way
+    or only that way in regard to the method of using an application.  No
+    matter how many ways of using an application have been pre-thought out by
+    its manufacturer and facilitated with widgets, there always will be people
+    who would rather exercise the application in some other way.  (Yet it
+    ought to be legally OK for a person to make an application that can be
+    used in only one way and to offer it for sale at any price he wishes.)  
+
+    While some may use the PC mindlessly, the essential customers for a PC are
+    those who use it for being productive in an endeavor other than that of
+    selling PCs.  These productive users, unlike the mindless users,  can
+    afford to pay for the PC and so benefit the manufacturer of the PC.  Such
+    proper users cannot be expected to be interested in spending time
+    modifying and rebuilding sources in the name of customizing the
+    application.  (Those who, for whatever reason, are penniless cannot 
+    demand any product as a right but can only be grateful for whatever 
+    charity comes their way.)  
+
+    It is possible for an application to not be widget-bound and yet be
+    finished, and to not be the raw sources and yet be expandable
+    (meaningfully by all users including lay users).  And it should not be
+    surprising that best form for an application is exemplified by the key
+    application needed to exploit the PC:  the text editor.  In the course of
+    being productive, both beginners and experienced users find that the
+    sophisticated text editors mentioned in the preceding section facilitate
+    their work while they continue to discover even more ways to use the
+    editor to be more productive.  Given that the text editor is indispensable
+    to the user of a PC, in time, his text editor is the application the user
+    is most proficient at.   
+
+    Given the nature of the text editor, it makes sense to use it as the
+    interface to applications on the PC.  Although this way of using the text
+    editor has not before been isolated and conceptualized, say, under the
+    term ''Editable User Interface'', there have been applications that used
+    the text editor for their interface -- a simple example being Vim's file
+    explorer.  
+
+    But the lack of that conceptualization has tended to make some developers
+    incorporate the application into the text editor as a monolithic product
+    (several applications tightly bundled with a single text editor) and other
+    developers to resist any integration of the text-editor with other
+    applications for non-text-editing functions.  
+
+    The conceptualization of the ''Editable User Interface'' helps define and
+    delimit the role of the text editor in facilitating the use of diverse
+    applications.  In such a role, the text editor is delimited to being an
+    interface only, i.e., in regard to support of non-text-editing tasks, it
+    is delimited to 
+
+      1) rendering user input,
+
+      2) transferring user commands and data to the external application,
+
+      3) responding to (text-editing) commands from the external application and
+
+      4) rendering the external application's output to the user.  
+
+    In the above, rendering refers to display of text;  I have no particular
+    opinion about supporting the display of images (such as corner analog
+    clocks or image based stationery or charts) or redering other things in 
+    a text editor.
+
+    As a specific example of the abstraction ''Editable User Interface'', the
+    code presented here, eui_vim.vim and eui_vim.pl illustrate how one can 
+    use the Vim editor as an user interface to other applications.
+
+Users' Guide                                           *eui_vim-users'-guide*
+
+  Preliminaries                                       *eui_vim-preliminaries*
+
+    System Requirements                         *eui_vim-system-requirements*
+
+    Eui_vim has been tested on Windows 98 with the ''Big version with GUI''
+    Vim 6.2 (requires +clientserver, but perl support is not required).  It is
+    unlikely to work as-is on unix (the port to unix is likely to be simpler).
+
+    Download                                               *eui_vim-download*
+
+    http://www.sonic.net/~suresh/eui_vim/eui_vim.zip
+
+    Installation                                       *eui_vim-installation*
+
+    Essentially, unzip eui_vim.zip over the vimfiles directory while
+    preserving folder names and regenerate the help-tags.  
+
+    Unzipping deploys three files:  
+
+        vimfiles\plugin\eui_vim.vim,
+        vimfiles\perl\eui_vim.pl     and 
+        vimfiles\doc\eui_vim.txt 
+
+    The help-tags can be regenerated, for example, by executing '':helptags
+    $vim\vimfiles\doc'' from within vim.
+
+    In systems that don't have perl, eui_vim.pl can be replaced by a
+    self-contained executable, eui_vim.exe available from the author.
+
+  Tutorial                                               *eui_vim-tutorial*
+
+  Usage involves issuing the command '':EUIProcess <command> [<data>]''.  This
+  command is received by eui_vim.vim and sent to eui_vim.pl.  Eui_vim.pl then
+  sends its response to the user by directly commanding the vim-server. 
+
+    :EUIProcess foo                                *eui_vim-EUIProcess-foo*
+
+    Issuing the command '':EUIProcess foo'' results in a pop-up dialog box
+    which, essentially, informs the user that foo is undefined.  The message
+    in the dialog box might also include the buffer name, line number and
+    column number of the cursor's position when the foo command was issued.
+    (The exact message is not mentioned here to avoid having to modify this
+    manual each time minor changes are made to the software.)
+
+    Although the foo command failed, it has helped illustrate that the
+    external program can cause vim to pop-up dialog boxes (depreciated unless
+    one really wants to grab the user's attention).
+
+    :EUIProcess list                               *eui_vim-EUIProcess-list*
+
+    Issuing the command '':EUIProcess list'' results in the user being shown,
+    on the command line, the list of defined processes.  For example, the
+    command line might show:  
+
+           The defined processes are:
+                    list,
+                    demo_plot and
+                    quit
+
+    :EUIProcess demo_plot                      *eui_vim-EUIProcess-demo_plot*
+
+    Before executing demo_plot, create a new buffer (for example, by issuing
+    the command :new eui_demo) and enter this text in it:
+
+           1   2
+           2   5
+           3   10
+           4   17
+           5   26
+
+    The demo_plot command can be used to get simple statistics (min, max,
+    average) of the second column and, if pgnuplot.exe is in the system path,
+    to plot the second column against the first column.
+
+    Copy the first column into a register, say, a and the second column into
+    another register, say, b.  If you are not sure how to do this, you may
+    continue this tutorial by entering the following two lines:
+
+           1  2   3   4   5
+           2  5  10  17  26 
+
+    and yanking them to two registers (by placing the cursor on first line and
+    issuing the normal mode command ''ayy;  placing the cursor on the  second
+    line and issuing ''byy).
+
+    So now registers a and b contain the data for the demo_plot command
+    (nothing special about registers ''a'' and ''b'' -- any two registers
+    could have been used). Keep the cursor on a buffer for which you have
+    wirte permission, say the eui_demo buffer just created, and issue the
+    command '':EUIProcess demo_plot a b''.
+
+    You may do anything (such as move the cursor in any manner, and even close
+    the buffer from which the command was issued) after issuing the command.
+    In particular, in the case of commands that take a long time to execute,
+    the user can continue working at the vim server.  (The demo_plot command
+    executes very quickly with the preceding data and so this feature is not
+    apparent right now.) 
+
+    The issued demo_plot command will result in the following text 
+
+           The minimum is    2
+           The maximum is   26
+           The average is   12
+
+    appearing below the cursor (if the lines show up staggered it could be
+    because smartindent is on for the buffer).  And if pgnuplot.exe is in the
+    system path, a graph of the data will pop-up.
+
+    How the transfers are done          *eui_vim-how-the-transfers-are-done* 
+
+    This section is in case you are curious about how the transfers between
+    the vim-server and the external program take place.  The communication is
+    half-duplex.  Two different methods are used for realizing each direction
+    of the communication. 
+
+    Vim's ''client-server'' feature allows two vim-sessions to transfer
+    command and data between themselves.  Vim doesn't act as a server in the
+    usual sense of an application that listens at a port and spawns a new
+    process to talk to each client that attaches to the port and then
+    continues listening at the port.
+
+    Notwithstanding the fact that Vim's client-server feature is restricted to
+    Vim programs, the external program can (and does) use this feature for
+    transferring its command and data to the vim-server.  This is done as
+    follows:  
+
+    The external program makes a system call that transfers the command and
+    data to a freshly launched intermediate vim, which in turn has the command
+    executed and the data processed by the vim-server by means of vim's
+    ''client-server'' feature.  
+
+    Commands and data go from the vim-server to the external program through
+    an intermediate ''fifo-file''.  In essence, the vim-server writes to the
+    fifo-file and the external program reads the fifo-file.  There is a well
+    defined format for the contents of this file (which will be explained
+    shortly).  If need be, the user can view this file, say, in Vim even while
+    an eui_vim session is active -- he will be able to see the vim-server
+    adding stuff (meant for the external program) to this file.    To a
+    certain extent, he can even delete things from this file -- there is
+    special logic in the external program that allows for this deletion.  
+
+    To look at the fifo-file, issue the '':ls'' command and look for a buffer
+    in the system's temporary directory (e.g., in c:\windows\temp) whose name
+    starts with the name of the vim-server (e.g., GVIM) and continues with a
+    string of digits -- so, for example, look in the output of '':ls'' for
+    something like:
+
+           10  h   "C:\WINDOWS\TEMP\GVIM1075760835" line 0
+
+    Note the number in the left-most column (''10'' in the example) and issue
+    the command  '':sb 10'' (without the quotes and after replacing ''10''
+    with the actual number you see). This might bring up a dialog box about
+    the file having been changed -- select the option to load the file (or
+    just select the OK option and then issue the command '':e!'').  You will
+    then be looking at the fifo-file.  
+
+      Format of the fifo-file                *eui_vim-format-of-the-fifo-file*
+
+      The very first line of the fifo-file is a time-stamp giving the date and
+      time when EUIProcess was first called.  The digits in the fifo-file's
+      name represent the time-stamp too -- they can be converted to a human
+      readable form using the strftime command (for example,
+      strftime(''%I:%M:%S %p, %a %b %d, %Y'', 1075760835),  which yeilds
+      02:27:15 PM, Mon Feb 02, 2004).
+
+      Below the time-stamp will be one or more blocks delimited with ''START''
+      and ''DONE''.  Each such block corresponds to an issuance of the
+      EUIProcess command.      
+
+      Each block has the form: 
+
+            START
+            <command>
+            <full path to file of buffer>=<line number>=<column number>
+            [<data>=]
+            DONE
+
+      where <command> is the command that was issued with '':EUIProcess'';
+      <file of buffer>, <line number> and <column number> refer to the
+      position of the cursor when the command was issued;  and [<data>=]
+      refers to the contents of each register that was specified with the
+      command.   
+
+      Note that the position of the cursor (specified toward the beginning of
+      each block) usually corresponds to the location where the external
+      program writes the results of the processing it did.  (Perhaps, this
+      position can be thought of as also the ''address the function call is
+      supposed to return results and control to''.)
+
+    :EUIProcess quit                          *eui_vim-EUIProcess-quit*
+
+    Issuing the command '':EUIProcess quit'' results in the deletion of the
+    fifo-file buffer, deletion of the fifo-file and termination of the
+    external program.  
+
+    Automatic clean-up                       *eui_vim-automatic-clean-up*
+
+    The '':EUIProcess quit'' command is automatically run whenever the
+    vim-server terminates. 
+
+Example Applications                        *eui_vim-example-applications*
+
+Here are two of the several applications that one can develop involving
+eui_vim.
+
+  VimPuppy                                              *eui_vim-VimPuppy*
+
+  Conventionally, pet-dogs have been viewed as bringing the morning newspaper
+  to their master.  VimPuppy performs this task in the realm of the web.  It
+  is an application that speeds up the process of viewing web-sites that one
+  frequents -- not merely by bringing the web-site to its master but -- more
+  significantly -- by processing the web-site before displaying the site to
+  its master.  The master can have VimPuppy perform additional tasks based on
+  what he sees in the newly fetched data.  VimPuppy would need to be trained
+  (configured) for each website that one desires it to retrieve.
+
+  To see what's involved, consider the web-site vim.sourceforge.net.  From the
+  point of view of daily viewing, this site has three main sections:
+  announcements, scripts and tips.  VimPuppy would collect the latest (since
+  its last visit to this site) announcements, scripts and tips, suitably
+  organize them and display them in Vim -- it would be organizing the actual
+  content of the new announcements, scripts and tips and not just the
+  introductory lines for these items.  (VimPuppy could also look at the
+  marginal information on the web-site and alert its master should they have
+  changed.)  Its master can then have VimPuppy fetch and install selected
+  scripts and/or add notes to tips.  VimPuppy can do this while its master is
+  working on other tasks; it can even cause the vim-server to source the newly
+  installed scripts and inform its master that they are ready to be tried out
+  (and also uninstall undesired scripts).      
+
+  By seeing how VimPuppy works on one of its target one can see that the time
+  that would be saved by VimPuppy would be worth much more than going from
+  14.4K to DSL.  VimPuppy is just one application of eui_vim -- other
+  applications would lead to additional savings. 
+
+  Vimms                                                   *eui_vim-Vimms* 
+
+  Briefly, this application, Vimms (Vim Mail Suite) would use different
+  sub-windows of Vim for managing the processes of fetching, filtering,
+  organizing, reading and sending mail and news messages.  There would 
+  also be auxiliary items such as address books and ticklers. 
+
+Author                                                     *eui_vim-author*
+
+Suresh Govindachar (email:  <initial><last name><at><yahoo>)
+
+Claims                                                     *eui_vim-claims*
+
+I came up with the following on my own.  
+
+    * The concept of an Editable User Interface (EUI). 
+
+    * The exposition of an Editable User Interface (EUI) given here, including 
+      the introduction, the illustration of EUI using Vim as the editor and
+      the development of eui_vim.*. 
+
+    * The fifo-file scheme for transferring data on windows (based on a
+      standard Unix facility).  This includes the receiver code that allows,
+      to some extent, editing of the fifo-file.
+
+    * The protocol (or the format of the fifo-file) being used for the
+      transfers from Vim to the external program.
+
+    * The conception of the two applications:  VimPuppy and Vimms, as 
+      presented above.
+
+Should you have occasion to discuss or use any of the above, please be sure 
+to give me due credit.  I thank you.
+
+Copyright                                               *eui_vim-copyright*
+
+Copyright (C) 2004 Suresh Govindachar 
+
+Disclaimer                                              *eui_vim-disclaimer*
+
+The material provided here:  eui_vim related code, executable and
+information are provided as-is without any warranty -- without even the
+implied warranty of merchantability or fitness for a particular purpose.
+The author assumes no responsibility for errors or omissions or for any 
+sort of damages resulting from the use of or reliance on the provided 
+material. 
+
+

@@ -1,0 +1,67 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=906
+
+____________________________________________________________
+Overview
+
+The plugin eui_vim concerns the use of a text editor as the user
+interface to applications:  the "Editable User Interface".
+
+It presents an alternative to incorporating applications into the
+text editor as a tightly bound, monolithic product and to
+resisting any integration of the text-editor with other
+applications for non-text-editing functions.  
+
+The conceptualization of the ''Editable User Interface'' helps
+define and delimit the role of the text editor in facilitating the
+use of diverse applications.  In such a role, the text editor is
+delimited to being an interface only, i.e., in regard to support
+of non-text-editing tasks, it is delimited to 
+
+  * rendering user input,
+  * transferring user commands and data to the external application,
+  * responding to (text-editing) commands from the external application and
+  * rendering the external application's output to the user.  
+
+(In the above, rendering refers to display of text.)
+
+As a specific example of the abstraction "Editable User Interface", 
+the code presented here, eui_vim.vim and eui_vim.pl illustrate how 
+one can use the Vim editor as an user interface to other applications.
+
+____________________________________________________________
+Value
+
+Most of the value of this plugin lies in the ideas expounded 
+in eui_vim.txt or in http://www.sonic.net/~suresh/eui/ 
+(and, perhaps, by way of the comments in the .vim and .pl code).
+
+____________________________________________________________
+Table of Contents of eui_vim.txt
+
+Introduction
+  Graphical, Keyboard and Pseudo-keyboard User Interfaces
+  Editable User Interface
+    The Text Editor
+    The PC as a Product
+Users' Guide
+  Preliminaries
+    System Requirements
+    Download
+    Installation
+  Tutorial
+    :EUIProcess foo
+    :EUIProcess list
+    :EUIProcess demo_plot
+    How the transfers are done
+      Format of the fifo-file
+    :EUIProcess quit
+    Automatic clean-up
+Example Applications
+  VimPuppy
+  Vimms
+Author
+Claims
+Copyright
+Disclaimer
+
+
